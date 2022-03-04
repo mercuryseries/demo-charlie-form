@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title post.translate('en').title %}
+
+{% block body %}
+    <h1>EN</h1>
+    <h3>{{ post.translate('en').title }}</h3>
+    <h3>{{ post.translate('en').content }}</h3>
+
+    <hr>
+
+    <h1>FR</h1>
+    <h3>{{ post.translate('fr').title }}</h3>
+    <h3>{{ post.translate('fr').content }}</h3>
+
+    <hr>
+
+    <a href="{{ path('app_home') }}">&larr; Back home</a>
+{% endblock %}
