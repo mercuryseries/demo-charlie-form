@@ -8,7 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DemoController extends AbstractController
@@ -34,7 +36,25 @@ class DemoController extends AbstractController
         $post = $postRepository->find(1);
         
         $form = $this->createFormBuilder($post)
-            ->add('translations', TranslationsType::class)
+            ->add('translations', TranslationsType::class, [
+                'locales' => ['en', 'fr'],
+                'default_locale' => ['en'],
+                'required_locales' => ['fr'],
+                'fields' => [
+                    'title' => [
+                        'field_type' => TextareaType::class,
+                        'label' => 'toto',
+                        'locale_options' => [
+                            'en' => ['label' => 'mama'],
+                            'fr' => ['label' => 'titre']
+                        ]
+                    ]
+                ],
+                'locale_labels' => [
+                    'fr' => 'Français',
+                    'en' => 'English',
+                ],
+            ])
             ->getForm()
         ;
 
